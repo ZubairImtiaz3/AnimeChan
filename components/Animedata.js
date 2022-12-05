@@ -31,13 +31,9 @@ function Animedata() {
     keepPreviousData: true,
   });
 
-  const { data: anime } = useQuery(
-    ["anime", page],
-    () => fetchAnimeData(page),
-    {
-      keepPreviousData: true,
-    }
-  );
+  const { data } = useQuery(["anime", page], () => fetchAnimeData(page), {
+    keepPreviousData: true,
+  });
 
   if (isLoading)
     return (
@@ -53,8 +49,8 @@ function Animedata() {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-wrap">
-        {anime.data.map((animeData) => (
+      {/* <div className="flex justify-center items-center flex-wrap">
+        {data.data.map((animeData) => (
           <div className="image">
             <img src={animeData.images.jpg.image_url} alt="" />
           </div>
@@ -67,7 +63,58 @@ function Animedata() {
             <p className="text-xl">{animeQoutesData.quote}</p>
           </div>
         ))}
+      </div> */}
+
+      <div className="bg-black h-[4.5rem]">
+        <h1 className="text-white text-center pt-5 text-lg font-mont">
+          Anime Finder
+        </h1>
       </div>
+      <h2 className="text-center pt-8 font-mont max-w-[90%] lg:max-w-[60%] m-auto text-sm md:leading-[2.3rem] md:text-[1.3rem]">
+        You Are Facing Any Difficulty In Finding Your Favorite Character Or
+        Anime ?? Dont Worry , Cuz AnimeFinder(AF) Is Here And We Will Find It
+        For You In A Snap Bcz We Are Cool As AF
+      </h2>
+      <div>
+        <form
+          action=""
+          className="my-5 md:my-12 md:p-0 p-5 flex-wrap flex gap-4 justify-center"
+        >
+          <input
+            className="border-black border-2 rounded-md placeholder-black w-[25rem] h-[3rem] pl-4"
+            type="text"
+            placeholder="Type Any Character  "
+          />
+          <button className="border-black border-2 rounded-lg bg-black text-white w-[5.5rem] md:p-0 p-3">
+            Search
+          </button>
+        </form>
+      </div>
+      <div className="flex justify-center my-10 p-5 md:p-0">
+        <div className="rounded-lg shadow-lg bg-white max-w-sm">
+          <img
+            className="rounded-t-lg"
+            src="https://wallpaperaccess.com/full/395983.jpg"
+            alt=""
+          />
+          <div className="p-[1rem]">
+            <h5 className="text-gray-900 text-xl font-medium mb-2">
+              Character : Gaara
+            </h5>
+            <p className="text-gray-700 text-base mb-4">Anime : Naruto</p>
+            <p className="text-gray-700 text-base mb-4">
+              Qoute : <span>Peace Under An Illusion Is Not True Peace</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div className="bg-black md:h-[4.5rem] items-center">
+          <h1 className="text-white text-center pt-5 text-lg font-mont">
+            All &copy; Copyrights reserved by Chacha Lali ☕
+          </h1>
+        </div>
+      </footer>
     </>
   );
 }
