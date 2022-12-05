@@ -67,13 +67,12 @@ function Animedata() {
 
       <div className="bg-black h-[4.5rem]">
         <h1 className="text-white text-center pt-5 text-lg font-mont">
-          Anime Finder
+          Anime Qoutes
         </h1>
       </div>
       <h2 className="text-center pt-8 font-mont max-w-[90%] lg:max-w-[60%] m-auto text-sm md:leading-[2.3rem] md:text-[1.3rem]">
-        You Are Facing Any Difficulty In Finding Your Favorite Character Or
-        Anime ?? Dont Worry , Cuz AnimeFinder(AF) Is Here And We Will Find It
-        For You In A Snap Bcz We Are Cool As AF
+        Holla Weeb !! Here You Can Find Popular Qoutes Of Your Favourite Anime
+        Character.
       </h2>
       <div>
         <form
@@ -90,24 +89,32 @@ function Animedata() {
           </button>
         </form>
       </div>
-      <div className="flex justify-center my-10 p-5 md:p-0">
-        <div className="rounded-lg shadow-lg bg-white max-w-sm">
-          <img
-            className="rounded-t-lg"
-            src="https://wallpaperaccess.com/full/395983.jpg"
-            alt=""
-          />
-          <div className="p-[1rem]">
-            <h5 className="text-gray-900 text-xl font-medium mb-2">
-              Character : Gaara
-            </h5>
-            <p className="text-gray-700 text-base mb-4">Anime : Naruto</p>
-            <p className="text-gray-700 text-base mb-4">
-              Qoute : <span>Peace Under An Illusion Is Not True Peace</span>
-            </p>
+      <div className="flex justify-around items-center flex-wrap">
+        {animeQoutes.map((animeQoutesData) => (
+          <div className="flex items-center my-10 p-5 md:p-0 flex-wrap self-start">
+            <div className="rounded-lg shadow-lg bg-white max-w-sm">
+              <img
+                className="rounded-t-lg"
+                src="https://wallpaperaccess.com/full/395983.jpg"
+                alt=""
+              />
+
+              <div className="p-[1rem]">
+                <h5 className="text-gray-900 text-xl font-medium mb-2">
+                  Character : <span>{animeQoutesData.character}</span>
+                </h5>
+                <p className="text-gray-700 text-base mb-4">
+                  Anime : <span>{animeQoutesData.anime}</span>
+                </p>
+                <p className="text-gray-700 text-base mb-4">
+                  Qoute : <span>{animeQoutesData.quote}</span>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
+
       <footer>
         <div className="bg-black md:h-[4.5rem] items-center">
           <h1 className="text-white text-center pt-5 text-lg font-mont">
