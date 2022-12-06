@@ -7,7 +7,9 @@ function Animedata() {
   //State for next,prev Page
   const [page, setpage] = useState(1);
 
-  const [search, setsearch] = useState(null);
+  const [search, setsearch] = useState("naruto");
+
+  const [textsearch, setTextSearch] = useState("");
 
   //Fetching From API
 
@@ -30,7 +32,7 @@ function Animedata() {
     data: animeQoutes,
     isError,
     isFetching,
-  } = useQuery(["quotes", page], () => fetchAnimeQoutes(page), {
+  } = useQuery(["quotes", page, search], () => fetchAnimeQoutes(page, search), {
     keepPreviousData: true,
   });
 
@@ -49,6 +51,14 @@ function Animedata() {
         Error: {error.message}
       </p>
     );
+
+  const handlerOnChange = (event) => {
+    setTextSearch(event.target.value);
+  };
+
+  const handlerOnSearch = () => {
+    setTextSearch(setsearch);
+  };
 
   return (
     <>
@@ -78,19 +88,21 @@ function Animedata() {
         Character.
       </h2>
       <div>
-        <form
-          action=""
-          className="my-5 md:my-12 md:p-0 p-5 flex-wrap flex gap-4 justify-center"
-        >
+        <div className="my-5 md:my-12 md:p-0 p-5 flex-wrap flex gap-4 justify-center">
           <input
+            value={textsearch}
+            onChange={handlerOnChange}
             className="border-black border-2 rounded-md placeholder-black w-[25rem] h-[3rem] pl-4"
             type="text"
             placeholder="Type Any Character  "
           />
-          <button className="border-black border-2 rounded-lg bg-black text-white w-[5.5rem] md:p-0 p-3">
+          <button
+            onClick={handlerOnSearch}
+            className="border-black border-2 rounded-lg bg-black text-white w-[5.5rem] md:p-0 p-3"
+          >
             Search
           </button>
-        </form>
+        </div>
       </div>
       <div className="flex justify-around items-center flex-wrap">
         {animeQoutes.map((animeQoutesData) => (
