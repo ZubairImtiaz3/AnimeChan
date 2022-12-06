@@ -7,11 +7,14 @@ function Animedata() {
   //State for next,prev Page
   const [page, setpage] = useState(1);
 
+  const [search, setsearch] = useState(null);
+
   //Fetching From API
 
-  const fetchAnimeQoutes = async (page) => {
+  const fetchAnimeQoutes = async (page, search) => {
     const res = await fetch(
-      "https://animechan.vercel.app/api/quotes?&page=" + page
+      `https://animechan.vercel.app/api/quotes/anime?title=${search}?&page=` +
+        page
     );
     return res.json();
   };
