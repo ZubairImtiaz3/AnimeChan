@@ -21,8 +21,10 @@ function Animedata() {
     return res.json();
   };
 
-  const fetchAnimeData = async (page) => {
-    const res = await fetch(`https://api.jikan.moe/v4/anime?q=&page=` + page);
+  const fetchAnimeData = async (page, search) => {
+    const res = await fetch(
+      `https://api.jikan.moe/v4/anime?q=${search}&limit=10&page=` + page
+    );
     return res.json();
   };
 
@@ -36,9 +38,13 @@ function Animedata() {
     keepPreviousData: true,
   });
 
-  const { data } = useQuery(["anime", page], () => fetchAnimeData(page), {
-    keepPreviousData: true,
-  });
+  const { data } = useQuery(
+    ["anime", page, search],
+    () => fetchAnimeData(page, search),
+    {
+      keepPreviousData: true,
+    }
+  );
 
   if (isLoading)
     return (
@@ -104,15 +110,26 @@ function Animedata() {
           </button>
         </div>
       </div>
+
+      {data.data.map((animeData) => (
+        <img
+          className="rounded-t-lg"
+          src={animeData.images.jpg.image_url}
+          alt=""
+        />
+      ))}
+
       <div className="flex justify-around items-center flex-wrap">
         {animeQoutes.map((animeQoutesData) => (
           <div className="flex items-center my-10 p-5 md:p-0 flex-wrap self-start">
             <div className="rounded-lg shadow-lg bg-white max-w-sm">
-              <img
-                className="rounded-t-lg"
-                src="https://wallpaperaccess.com/full/395983.jpg"
-                alt=""
-              />
+              {/* {data.data.map((animeData) => (
+                <img
+                  className="rounded-t-lg"
+                  src={animeData.images.jpg.image_url}
+                  alt=""
+                />
+              ))} */}
 
               <div className="p-[1rem]">
                 <h5 className="text-gray-900 text-xl font-medium mb-2">
