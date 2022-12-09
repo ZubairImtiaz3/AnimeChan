@@ -1,7 +1,7 @@
 import React from "react";
 
 // Components
-import Animedata from "../components/AnimeData";
+import Animedata from "../components/Animedata";
 
 //Fecting Data Using ReactQuery
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
