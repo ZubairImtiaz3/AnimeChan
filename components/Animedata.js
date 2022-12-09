@@ -96,7 +96,10 @@ function Animedata() {
       <div className="flex justify-around items-center flex-wrap">
         <div className="flex items-center my-10 p-5 md:p-0 flex-wrap self-start">
           {data.data.map((animeData) => (
-            <div className="rounded-lg shadow-lg bg-white max-w-sm flex flex-col">
+            <div
+              key={animeData.mal_id}
+              className="rounded-lg shadow-lg bg-white max-w-sm flex flex-col"
+            >
               <img
                 className="rounded-t-lg"
                 src={animeData.images.jpg.image_url}
