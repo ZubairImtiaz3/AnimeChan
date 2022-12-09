@@ -15,7 +15,7 @@ function Animedata() {
 
   const fetchAnimeQoutes = async (page, search) => {
     const res = await fetch(
-      `https://animechan.vercel.app/api/quotes/anime?title=${search}?&page=` +
+      `https://animechan.vercel.app/api/random/anime?title=${search}?&page=` +
         page
     );
     return res.json();
@@ -23,7 +23,7 @@ function Animedata() {
 
   const fetchAnimeData = async (page, search) => {
     const res = await fetch(
-      `https://api.jikan.moe/v4/anime?q=${search}&limit=10&page=` + page
+      `https://api.jikan.moe/v4/anime?q=${search}&limit=1&page=` + page
     );
     return res.json();
   };
@@ -33,7 +33,6 @@ function Animedata() {
     error,
     data: animeQoutes,
     isError,
-    isFetching,
   } = useQuery(["quotes", page, search], () => fetchAnimeQoutes(page, search), {
     keepPreviousData: true,
   });
@@ -48,7 +47,11 @@ function Animedata() {
 
   if (isLoading)
     return (
-      <p className="font-bold text-center text-3xl mt-10 mb-10">Loading...</p>
+      <div className="h-[100vh] flex items-center justify-center">
+        <p className="font-bold text-center text-3xl mt-10 mb-10">
+          Loading Qoutes...
+        </p>
+      </div>
     );
 
   if (isError)
@@ -68,31 +71,10 @@ function Animedata() {
 
   return (
     <>
-      {/* <div className="flex justify-center items-center flex-wrap">
-        {data.data.map((animeData) => (
-          <div className="image">
-            <img src={animeData.images.jpg.image_url} alt="" />
-          </div>
-        ))}
-
-        {animeQoutes.map((animeQoutesData) => (
-          <div className="content">
-            <h3 className="text-3xl">{animeQoutesData.anime}</h3>
-            <h2 className="text-2xl">{animeQoutesData.character}</h2>
-            <p className="text-xl">{animeQoutesData.quote}</p>
-          </div>
-        ))}
-      </div> */}
-
-      <div className="bg-black h-[4.5rem]">
-        <h1 className="text-white text-center pt-5 text-lg font-mont">
-          Anime Qoutes
-        </h1>
-      </div>
       <h2 className="text-center pt-8 font-mont max-w-[90%] lg:max-w-[60%] m-auto text-sm md:leading-[2.3rem] md:text-[1.3rem]">
-        Holla Weeb !! Here You Can Find Popular Qoutes Of Your Favourite Anime
-        Character.
+        Holla Weeb !! Here You Can Find Popular Qoutes Of Your Favourite Anime.
       </h2>
+
       <div>
         <div className="my-5 md:my-12 md:p-0 p-5 flex-wrap flex gap-4 justify-center">
           <input
@@ -100,7 +82,7 @@ function Animedata() {
             onChange={handlerOnChange}
             className="border-black border-2 rounded-md placeholder-black w-[25rem] h-[3rem] pl-4"
             type="text"
-            placeholder="Type Any Character  "
+            placeholder="Type Any Anime Title"
           />
           <button
             onClick={handlerOnSearch}
@@ -111,49 +93,39 @@ function Animedata() {
         </div>
       </div>
 
-      {data.data.map((animeData) => (
-        <img
-          className="rounded-t-lg"
-          src={animeData.images.jpg.image_url}
-          alt=""
-        />
-      ))}
-
       <div className="flex justify-around items-center flex-wrap">
-        {animeQoutes.map((animeQoutesData) => (
-          <div className="flex items-center my-10 p-5 md:p-0 flex-wrap self-start">
-            <div className="rounded-lg shadow-lg bg-white max-w-sm">
-              {/* {data.data.map((animeData) => (
-                <img
-                  className="rounded-t-lg"
-                  src={animeData.images.jpg.image_url}
-                  alt=""
-                />
-              ))} */}
-
+        <div className="flex items-center my-10 p-5 md:p-0 flex-wrap self-start">
+          {data.data.map((animeData) => (
+            <div className="rounded-lg shadow-lg bg-white max-w-sm flex flex-col">
+              <img
+                className="rounded-t-lg"
+                src={animeData.images.jpg.image_url}
+                alt=""
+              />
               <div className="p-[1rem]">
                 <h5 className="text-gray-900 text-xl font-medium mb-2">
-                  Character : <span>{animeQoutesData.character}</span>
+                  Anime : <span>{animeQoutes.anime}</span>
                 </h5>
                 <p className="text-gray-700 text-base mb-4">
-                  Anime : <span>{animeQoutesData.anime}</span>
+                  Character : <span>{animeQoutes.character}</span>
                 </p>
                 <p className="text-gray-700 text-base mb-4">
-                  Qoute : <span>{animeQoutesData.quote}</span>
+                  Qoute : <span>{animeQoutes.quote}</span>
                 </p>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <footer>
-        <div className="bg-black md:h-[4.5rem] items-center">
-          <h1 className="text-white text-center pt-5 text-lg font-mont">
-            All &copy; Copyrights reserved by Chacha Lali ☕
-          </h1>
-        </div>
-      </footer>
+      <div className="nav flex justify-center items-center mb-20">
+        <button
+          onClick={() => setpage((prevState) => prevState + 1)}
+          className=" cursor-pointer inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-black hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900 disabled:bg-indigo-400"
+        >
+          Load More
+        </button>
+      </div>
     </>
   );
 }
